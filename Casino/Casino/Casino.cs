@@ -1,7 +1,7 @@
 ﻿internal class Casino
 {
     private double _balance = 0;
-    public bool _isGameFinished = false;
+    public bool isGameFinished = false;
 
     public static void PrintHeader()
     {
@@ -111,7 +111,7 @@
 
     private OptionHandleResult Exit()
     {
-        _isGameFinished = true;
+        isGameFinished = true;
         return OptionHandleResult.Success;
     }
 }
