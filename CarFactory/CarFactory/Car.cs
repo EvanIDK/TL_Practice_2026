@@ -51,19 +51,17 @@ internal class Car
     {
         AnsiConsole.Clear();
         AnsiConsole.MarkupLine( $"[green]Готово![/] Твоя {_make} собрана!" );
-        AnsiConsole.MarkupLine( $"[yellow]Характеристики: [/]" );
-        AnsiConsole.MarkupLine( $" - Кузов: {_kuzov}" );
-        AnsiConsole.MarkupLine( $" - Цвет: {_color}" );
-        AnsiConsole.MarkupLine( $" - Мотор: {_engine}" );
-        AnsiConsole.MarkupLine( $" - КПП: {_transmission}" );
-        AnsiConsole.MarkupLine( $" - Максимальная скорость: [red]{_maxSpeed}[/] км/ч" );
-        AnsiConsole.MarkupLine( $" Кол-во передач: [red]{_numberOfGears} [/]" );
+        var table = new Table();
+        table.Title( "Характеристики" );
+        table.Border( TableBorder.Rounded );
+        table.AddColumn( "Параметр" );
+        table.AddColumn( "Значение" );
+        table.AddRow( "Марка", _make );
+        table.AddRow( "Кузов", _kuzov );
+        table.AddRow( "Мотор", _engine );
+        table.AddRow( "КПП", _transmission );
+        table.AddRow( "Максимальная скорость", $"{_maxSpeed} км/ч" );
+        table.AddRow( "Кол-во передач", _numberOfGears.ToString() );
+        AnsiConsole.Write( table );
     }
 }
-
-
-
-
-
-
-
