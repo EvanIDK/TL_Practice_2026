@@ -1,15 +1,7 @@
-﻿Casino casino = new Casino();
+﻿using Casino;
 
-Casino.PrintHeader();
+Game game = new Game();
 
-while ( casino.MakeDeposit() != OptionHandleResult.Success )
-{
-    Console.WriteLine( "Введите натуральное число > 0" );
-}
-do
-{
-    casino.PrintMenu();
-    string option = Console.ReadLine() ?? string.Empty;
-    casino.HandleOptions( option );
-}
-while ( !casino.isGameFinished );
+ConsoleApp app = new ConsoleApp( game );
+
+app.Run();
