@@ -5,8 +5,8 @@ OrderService orderService = new OrderService();
 
 do
 {
-    orderService.GetClientOrder();
+    orderService.ReadClientOrder();
 }
-while ( orderService.OrderConfirmation() != OrderResult.Success );
+while ( orderService.ConfirmOrder() == OrderResult.Rejected );
 
 orderService.PrintOrderSummary();

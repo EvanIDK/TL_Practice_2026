@@ -7,44 +7,51 @@ internal class OrderService
 {
     private Order? _order;
 
-    public void GetClientOrder()
+    public void ReadClientOrder()
     {
-        Console.WriteLine( "1. Запрос данных у пользователя " );
+        Console.WriteLine( "Запрос данных у пользователя " );
         string productName = InputValidator.ReadNonEmpty( " - Название товара: " );
-        int quantity = InputValidator.ReadQuantityInt( " - Количество товара: " );
+        int quantity = InputValidator.ReadPositiveInt( " - Количество товара: " );
         string userName = InputValidator.ReadLettersOnly( " - Имя пользователя: " );
         string shippingAddress = InputValidator.ReadNonEmpty( " - Адрес доставки: " );
 
         _order = new Order( productName, quantity, userName, shippingAddress );
     }
 
-    public OrderResult OrderConfirmation()
+    public OrderResult ConfirmOrder()
     {
-        Console.WriteLine( $"Здравствуйте, {_order!.UserName}, вы заказали {_order.Quantity} {_order.ProductName} на адрес {_order.ShippingAddress}, все верно?" );
+        if ( _order == null )
+        {
+            throw new InvalidOperationException( "Order не инициализирован. Вначале вызовите ReadClientOrder()" );
+        }
+
+        Console.WriteLine( $"Здравствуйте, {_order.UserName}, вы заказали {_order.Quantity} {_order.ProductName} на адрес {_order.ShippingAddress}, все верно?" );
         Console.WriteLine( "Да/Нет: " );
-        string? userResponse = Console.ReadLine()?.Trim();
 
         while ( true )
         {
+            string? userResponse = Console.ReadLine()?.Trim();
             if ( string.Equals( userResponse, "да", StringComparison.OrdinalIgnoreCase ) )
             {
-                return OrderResult.Success;
+                return OrderResult.Confirmed;
             }
-            else if ( string.Equals( userResponse, "нет", StringComparison.OrdinalIgnoreCase ) )
+            if ( string.Equals( userResponse, "нет", StringComparison.OrdinalIgnoreCase ) )
             {
-                return OrderResult.RepeatOrder;
+                return OrderResult.Rejected;
             }
-            else
-            {
-                Console.Write( "Введите Да/Нет: " );
-                userResponse = Console.ReadLine()?.Trim();
-            }
+            Console.Write( "Введите Да/Нет: " );
         }
+
     }
 
     public void PrintOrderSummary()
     {
+        if ( _order == null )
+        {
+            throw new InvalidOperationException( "Order не инициализирован. Вначале вызовите ReadClientOrder()" );
+        }
         var deliveryDate = DateTime.Today.AddDays( 3 );
-        Console.WriteLine( $"{_order!.UserName}! Ваш заказ {_order.ProductName} в количестве {_order.Quantity} оформлен! Ожидайте доставку по адресу {_order.ShippingAddress} к {deliveryDate:dd.MM.yyyy}" );
+        Console.WriteLine( $"{_order.UserName}! Ваш заказ {_order.ProductName} в количестве {_order.Quantity} оформлен! Ожидайте доставку по адресу {_order.ShippingAddress} к {deliveryDate:dd.MM.yyyy}" );
+
     }
 }

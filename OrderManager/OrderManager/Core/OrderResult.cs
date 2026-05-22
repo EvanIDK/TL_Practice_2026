@@ -2,6 +2,6 @@
 
 internal enum OrderResult
 {
-    Success,
-    RepeatOrder
+    Confirmed,
+    Rejected
 }
