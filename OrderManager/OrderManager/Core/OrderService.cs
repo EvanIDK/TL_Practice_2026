@@ -10,10 +10,10 @@ internal class OrderService
     public void ReadClientOrder()
     {
         Console.WriteLine( "Запрос данных у пользователя " );
-        string productName = InputValidator.ReadNonEmpty( " - Название товара: " );
-        int quantity = InputValidator.ReadPositiveInt( " - Количество товара: " );
-        string userName = InputValidator.ReadLettersOnly( " - Имя пользователя: " );
-        string shippingAddress = InputValidator.ReadNonEmpty( " - Адрес доставки: " );
+        string productName = InputReader.ReadNonEmpty( " - Название товара: " );
+        int quantity = InputReader.ReadPositiveInt( " - Количество товара: " );
+        string userName = InputReader.ReadLettersOnly( " - Имя пользователя: " );
+        string shippingAddress = InputReader.ReadNonEmpty( " - Адрес доставки: " );
 
         _order = new Order( productName, quantity, userName, shippingAddress );
     }

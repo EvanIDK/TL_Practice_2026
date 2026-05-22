@@ -1,6 +1,6 @@
 ﻿namespace OrderManager.Utilities;
 
-internal static class InputValidator
+internal static class InputReader
 {
 
     internal static string ReadLettersOnly( string prompt )
